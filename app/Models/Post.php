@@ -21,6 +21,12 @@ class Post extends Model
                 ->where('title', 'like', '%'.$filters['search'].'%')
                 ->orWhere('body', 'like', '%'.$filters['search'].'%');
         }
+
+        if(isset($filters['category'])){
+            $query->whereHas('category', function ($query) use ($filters) {
+                $query->where('slug', $filters['category']);
+            });
+        }
     }
 
     public function category(): BelongsTo
