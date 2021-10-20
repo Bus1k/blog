@@ -18,14 +18,15 @@ class SessionController extends Controller
             'password' => ['required']
         ]);
 
-        if(auth()->attempt($input)) {
-            return redirect(route('home'))
-                ->with('success', 'Welcome back '.auth()->user()->username.'!');
+        if(!auth()->attempt($input)) {
+            throw ValidationException::withMessages([
+                'email' => 'Your provided credentials could not be verified.'
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'email' => 'Your provided credentials could not be verified.'
-        ]);
+        session()->regenerate();
+        return redirect(route('home'))
+            ->with('success', 'Welcome back '.auth()->user()->username.'!');
     }
 
     public function destroy()
