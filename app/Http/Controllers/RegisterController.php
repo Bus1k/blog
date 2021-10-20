@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:7'],
         ]);
 
-        $input['pasword'] = Hash::make($input['password']);
+        $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
         auth()->login($user);
