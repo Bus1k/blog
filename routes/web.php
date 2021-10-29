@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PostCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+    Route::post('/posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 });
