@@ -7,7 +7,7 @@ use App\Services\Newsletter;
 class NewsletterController extends Controller
 {
 
-    public function store()
+    public function store(Newsletter $newsletter)
     {
         request()->validate([
             'email' => ['required', 'email'],
@@ -15,7 +15,6 @@ class NewsletterController extends Controller
 
         try
         {
-            $newsletter = new Newsletter();
             $newsletter->subscribe(request('email'));
 
         } catch(\Exception $e) {
