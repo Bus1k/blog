@@ -30,10 +30,17 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [SessionController::class, 'destroy'])
+        ->name('logout');
+
     Route::post('/posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 
-    Route::get('/posts/create', [PostController::class, 'create'])->middleware('admin');
+    Route::get('/posts/create', [PostController::class, 'create'])
+        ->middleware('admin');
+
+    Route::post('/posts', [PostController::class, 'store'])
+        ->name('store-post')
+        ->middleware('admin');
 });
 
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
