@@ -37,13 +37,15 @@ class PostController extends Controller
     {
         $input = request()->validate([
             'title'       => ['required', 'string', 'min:5', 'max:255'],
+            'thumbnail'   => ['required', 'image'],
             'excerpt'     => ['required', 'string', 'min:5', 'max:255'],
             'body'        => ['required', 'string', 'min:30', 'max:255'],
             'category_id' => ['required', Rule::exists('categories', 'id')],
         ]);
 
-        $input['slug']    = Str::kebab($input['title']);
-        $input['user_id'] = auth()->id();
+        $input['slug']      = Str::kebab($input['title']);
+        $input['user_id']   = auth()->id();
+        $input['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         Post::create($input);
 
