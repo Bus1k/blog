@@ -7,21 +7,25 @@
                 <h2 class="ml-4">Your comment.</h2>
             </header>
 
-            <div class="mt-6">
-                                <textarea
-                                    name="body"
-                                    id="body"
-                                    rows="5"
-                                    class="w-full text-sm focus:outline-none focus:ring0"
-                                    placeholder="Quick, thing of something to say!"
-                                    required></textarea>
-                @error('body')
-                    <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
+            <x-form.field>
+                <x-form.textarea name="body"/>
+            </x-form.field>
+
+{{--            <div class="mt-6">--}}
+{{--                <textarea--}}
+{{--                    name="body"--}}
+{{--                    id="body"--}}
+{{--                    rows="5"--}}
+{{--                    class="w-full text-sm focus:outline-none focus:ring0"--}}
+{{--                    placeholder="Quick, thing of something to say!"--}}
+{{--                    required></textarea>--}}
+{{--                @error('body')--}}
+{{--                    <span class="text-xs text-red-500">{{ $message }}</span>--}}
+{{--                @enderror--}}
+{{--            </div>--}}
 
             <div class="flex justify-end mt-6 pt-6 border-t border-gray-200 ">
-                <button type="submit" class="bg-blue-500 text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600">post</button>
+                <x-form.button>Post</x-form.button>
             </div>
 
         </form>
