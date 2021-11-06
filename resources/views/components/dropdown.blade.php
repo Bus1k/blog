@@ -1,4 +1,4 @@
-<div x-data="{ show: false }" @click.away="show = false">
+<div x-data="{ show: false }" @click.away="show = false" class="relative">
     {{-- TRIGGER --}}
     <div @click="show = !show">
         {{ $trigger }}

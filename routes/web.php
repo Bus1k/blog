@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 
     Route::get('/posts/create', [PostController::class, 'create'])
+        ->name('create-post')
         ->middleware('admin');
 
     Route::post('/posts', [PostController::class, 'store'])
