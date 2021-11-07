@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -50,6 +49,30 @@ class PostController extends Controller
         Post::create($input);
 
         return redirect('/');
+    }
+
+    public function dashboard()
+    {
+        return view('posts.dashboard', [
+            'posts' => Post::all()
+        ]);
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy()
+    {
+
     }
 
 }

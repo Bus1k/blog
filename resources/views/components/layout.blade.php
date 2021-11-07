@@ -30,7 +30,7 @@
                             </button>
                         </x-slot>
 
-                        <x-dropdown-item href="{{ route('home') }}" :active="request()->routeIs('home')">Home</x-dropdown-item>
+                        <x-dropdown-item href="{{ route('dashboard-post') }}" :active="request()->routeIs('dashboard-post')">Dashboard</x-dropdown-item>
                         <x-dropdown-item href="{{ route('create-post') }}" :active="request()->routeIs('create-post')">Create Post</x-dropdown-item>
                         <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Logout</x-dropdown-item>
                     </x-dropdown>

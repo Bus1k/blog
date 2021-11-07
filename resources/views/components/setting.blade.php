@@ -6,11 +6,11 @@
     </h1>
 
     <div class="flex">
-        <aside class="w-48">
+        <aside class="w-48 flex-shrink-0">
             <h4 class="font-semibold mb-4">Links</h4>
             <ul>
                 <li>
-                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-blue-500' : '' }}">Dashboard</a>
+                    <a href="{{ route('dashboard-post') }}" class="{{ request()->routeIs('dashboard-post') ? 'text-blue-500' : '' }}">Dashboard</a>
                 </li>
                 <li>
                     <a href="{{ route('create-post') }}" class="{{ request()->routeIs('create-post') ? 'text-blue-500' : '' }}">Create Post</a>

@@ -42,6 +42,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])
         ->name('store-post')
         ->middleware('admin');
+
+    Route::get('/posts/dashboard', [PostController::class, 'dashboard'])
+        ->name('dashboard-post')
+        ->middleware('admin');
+
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+        ->name('edit-post')
+        ->middleware('admin');
+
+    Route::patch('/posts/{post}', [PostController::class, 'update'])
+        ->middleware('admin');
+
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+        ->middleware('admin');
 });
 
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])
+    ->name('show-post');
