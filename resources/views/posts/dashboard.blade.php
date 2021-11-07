@@ -23,6 +23,9 @@
                                 <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Edit</span>
                                 </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Delete</span>
+                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -49,6 +52,14 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <a href="{{ route('edit-post', ['post' => $post->id]) }}" class="text-blue-500 hover:text-blue-600">Edit</a>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <form action="{{ route('delete-post', ['post' => $post->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class="text-xs text-gray-400">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
