@@ -34,14 +34,7 @@ class PostController extends Controller
 
     public function store()
     {
-        $input = request()->validate([
-            'title'       => ['required', 'string', 'min:5', 'max:255'],
-            'thumbnail'   => ['required', 'image'],
-            'excerpt'     => ['required', 'string', 'min:5', 'max:255'],
-            'body'        => ['required', 'string', 'min:30', 'max:255'],
-            'category_id' => ['required', Rule::exists('categories', 'id')],
-        ]);
-
+        $input              = $this->validatePost();
         $input['slug']      = Str::kebab($input['title']);
         $input['user_id']   = auth()->id();
         $input['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
@@ -68,14 +61,7 @@ class PostController extends Controller
 
     public function update(Post $post)
     {
-        $input = request()->validate([
-            'title'       => ['required', 'string', 'min:5', 'max:255'],
-            'thumbnail'   => ['image'],
-            'excerpt'     => ['required', 'string', 'min:5', 'max:255'],
-            'body'        => ['required', 'string', 'min:30', 'max:255'],
-            'category_id' => ['required', Rule::exists('categories', 'id')],
-        ]);
-
+        $input         = $this->validatePost($post);
         $input['slug'] = Str::kebab($input['title']);
 
         if(isset($input['thumbnail'])) {
@@ -95,4 +81,16 @@ class PostController extends Controller
             ->with('success', 'Post Deleted.');
     }
 
+    private function validatePost(?Post $post = null)
+    {
+        $post ??= new Post();
+
+        return request()->validate([
+            'title'       => ['required', 'string', 'min:5', 'max:255'],
+            'thumbnail'   => $post->exists ? ['image'] : ['required', 'image'],
+            'excerpt'     => ['required', 'string', 'min:5', 'max:255'],
+            'body'        => ['required', 'string', 'min:30', 'max:255'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
+    }
 }
