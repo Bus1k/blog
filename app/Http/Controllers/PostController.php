@@ -61,16 +61,34 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         return view('posts.edit', [
-            'post' => $post
+            'post'       => $post,
+            'categories' => Category::all()
         ]);
     }
 
-    public function update()
+    public function update(Post $post)
     {
+        $input = request()->validate([
+            'title'       => ['required', 'string', 'min:5', 'max:255'],
+            'thumbnail'   => ['image'],
+            'excerpt'     => ['required', 'string', 'min:5', 'max:255'],
+            'body'        => ['required', 'string', 'min:30', 'max:255'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
 
+        $input['slug'] = Str::kebab($input['title']);
+
+        if(isset($input['thumbnail'])) {
+            $input['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+        }
+
+        $post->update($input);
+
+        return redirect(route('dashboard-post'))
+            ->with('success', 'Post Updated.');
     }
 
-    public function destroy()
+    public function destroy(Post $post)
     {
 
     }
